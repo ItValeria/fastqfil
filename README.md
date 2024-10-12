@@ -14,6 +14,5 @@ bionf utility for filtering sequences
 You can import the needed functions from fastqfil, using import:
 for example,  
 `from fastqfil.fastqfil import filter_fastq`  
-
 or `from fastqfil.bio_files_processor import convert_multiline_fasta_to_oneline`
 
