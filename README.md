@@ -9,3 +9,9 @@ bionf utility for filtering sequences
 ## bio_files_processor.py contains 1 function:
 1. convert_multiline_fasta_to_oneline(input_fasta, output_fasta)
    Accepts 2 arguments as input (input_fasta and output_fasta). Reads the fasta file submitted for input, in which the sequence (DNA/RNA/protein/ ... ) can be divided into several lines, after which it saves it to a new fasta file in which each sequence fits into one line. Output_fasta is an optional argument
+
+### How to use:
+You can import the needed functions from fastqfil, using import:
+for example, `from fastqfil.fastqfil import filter_fastq`
+or `from fastqfil.bio_files_processor import convert_multiline_fasta_to_oneline`
+
