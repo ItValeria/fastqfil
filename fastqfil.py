@@ -1,37 +1,69 @@
-from additional_scripts.check_of_procedure import check_of_procedure
-from additional_scripts.type_of_chain import type_of_chain
-from additional_scripts.transcribe import transcribe
-from additional_scripts.reverse import reverse
-from additional_scripts.complement import complement
-from additional_scripts.reverse_complement import reverse_complement
+from additional_scripts.filtration_fastq import filt_fastq
+import os
+from additional_scripts.procedures_with_dna_and_rna import (
+    check_of_procedure,
+    complement,
+    reverse,
+    reverse_complement,
+    transcribe,
+    type_of_chain,
+)
 
-'''Accepts dictionaries with the sequence name,
+"""Accepts dictionaries with the sequence name,
 sequence and its quality of reading,
 filters according to the specified parameters
 of the percentage of GC nucleotides,
-the length of the sequences and the average quality 
-of reading. Returns a filtered dictionary'''
-def filter_fastq(seqs, gc_bounds = (0, 100), length_bounds = (0, 2**32), quality_threshold = 0):
-    filtered_fastq = dict()
-    if type(gc_bounds) == int:
-        gc_bounds = (0, gc_bounds)
-    if type(length_bounds) == int:
-        length_bounds = (0, length_bounds)
-    for name, sequal in seqs.items():
-        sequence, quality = sequal[0], sequal[1]
-        if length_bounds[0] <= len(sequence) <= length_bounds[1]:
-            if gc_bounds[0] <= (sequence.count("C") + sequence.count("G")) / len(sequence) * 100 <= gc_bounds[1]:
-                median_quality = 0
-                for symbol in quality:
-                    median_quality += ord(symbol) - 33
-                median_quality = median_quality/len(sequence)
-                if median_quality > quality_threshold:
-                    filtered_fastq[name] = (sequence, quality)
-    return filtered_fastq
+the length of the sequences and the average quality
+of reading. Returns a filtered dictionary"""
 
-#Receives the nucleotide chains and the procedure
-#Checks the correctness of the input
-#Returns the changed circuits
+
+def filter_fastq(
+    input_fastq,
+    output_fastq,
+    gc_bounds=(0, 100),
+    length_bounds=(0, 2**32),
+    quality_threshold=0,
+):
+    if not os.path.isdir("filtered"):
+        os.mkdir("filtered")
+    if isinstance(gc_bounds, int):
+        gc_bounds = (0, gc_bounds)
+    if isinstance(length_bounds, int):
+        length_bounds = (0, length_bounds)
+    with open(input_fastq, "r") as read_fastq, open(
+        os.path.join("filtered", output_fastq), "w"
+    ) as write_fastq:
+        name, sequence, commentary, quality = "", "", "", ""
+        count_of_line = 0
+        # Reading 4 lines of the same sequence
+        for line in read_fastq:
+            if count_of_line == 0:
+                name = line
+                count_of_line += 1
+            elif count_of_line == 1:
+                sequence = line
+                count_of_line += 1
+            elif count_of_line == 2:
+                commentary = line
+                count_of_line += 1
+            elif count_of_line == 3:
+                quality = line
+                count_of_line = 0
+                # Checking the length, GC content and reading quality of nucleotide chains
+                if filt_fastq(
+                    name, sequence, quality, gc_bounds, length_bounds, quality_threshold
+                ):
+                    # Writing the verified sequences to an external file
+                    write_fastq.write(name)
+                    write_fastq.write(sequence)
+                    write_fastq.write(commentary)
+                    write_fastq.write(quality)
+                name, sequence, commentary, quality = "", "", "", ""
+
+
+# Receives the nucleotide chains and the procedure
+# Checks the correctness of the input
+# Returns the changed circuits
 def run_dna_rna_tools(*nucleotide_chains_and_procedure):
     procedures = {
         "transcribe": transcribe,
