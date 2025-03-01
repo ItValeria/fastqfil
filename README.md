@@ -13,7 +13,7 @@ This package contains functions for:
 
 ### fastqfil.py  
 
-1. filter_fastq(input_fastq, output_fastq, gc_bounds=(0, 100), length_bounds=(0, 232), quality_threshold=0)
+1. #### filter_fastq(input_fastq, output_fastq, gc_bounds=(0, 100), length_bounds=(0, 232), quality_threshold=0)
    - Description: Filters sequences from a FastQ file based on specified GC content, sequence length, and average quality score.  
    - Parameters:  
      - input_fastq *(str)* – Path to the input FastQ file.  
@@ -22,28 +22,28 @@ This package contains functions for:
      - length_bounds *(tuple or int, default=(0, 2**32))* – Allowed range of sequence lengths. If an integer is passed
      - quality_threshold *(float, default=0)* – Minimum average quality score required for sequences.  
    - Output: A filtered FastQ file inside the filtered directory.
-2.  Classes
+2.  #### Classes
 
-#### InvalidBiologicalSequence
+##### InvalidBiologicalSequence
 - Exception for invalid biological sequence alphabet.
 
-#### BiologicalSequence (Abstract class)
+##### BiologicalSequence (Abstract class)
 - Base class for biological sequences.
 - Methods: len(), getitem(), str(), repr(), abstract method _check_alphabet().
 
-#### NucleicAcidSequence (Abstract class)
+##### NucleicAcidSequence (Abstract class)
 - Base class for nucleic acid sequences (DNA/RNA).
 - Methods: reverse(), complement(), reverse_complement().
 
-#### DNASequence
+##### DNASequence
 - Class for working with DNA sequences.
 - Methods: _check_alphabet(), transcribe().
 
-#### RNASequence
+##### RNASequence
 - Class for working with RNA sequences.
 - Methods: _check_alphabet().
 
-#### AminoAcidSequence
+##### AminoAcidSequence
 - Class for working with amino acid sequences.
 - Methods: _check_alphabet(), amino_acid_composition().
 ---
