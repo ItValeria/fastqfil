@@ -25,28 +25,28 @@ This package contains functions for:
 
 2.  #### Classes containing:
 
-##### InvalidBiologicalSequence
-- Exception for invalid biological sequence alphabet.
+- InvalidBiologicalSequence
+  - Exception for invalid biological sequence alphabet.
 
-##### BiologicalSequence (Abstract class)
-- Base class for biological sequences.
-- Methods: len(), getitem(), str(), repr(), abstract method _check_alphabet().
+- BiologicalSequence (Abstract class)
+  - Base class for biological sequences.
+  - Methods: len(), getitem(), str(), repr(), abstract method _check_alphabet().
 
-##### NucleicAcidSequence (Abstract class)
-- Base class for nucleic acid sequences (DNA/RNA).
-- Methods: reverse(), complement(), reverse_complement().
+- NucleicAcidSequence (Abstract class)
+  - Base class for nucleic acid sequences (DNA/RNA).
+  - Methods: reverse(), complement(), reverse_complement().
 
-##### DNASequence
-- Class for working with DNA sequences.
-- Methods: _check_alphabet(), transcribe().
+- DNASequence
+  - Class for working with DNA sequences.
+  - Methods: _check_alphabet(), transcribe().
 
-##### RNASequence
-- Class for working with RNA sequences.
-- Methods: _check_alphabet().
+- RNASequence
+  - Class for working with RNA sequences.
+  - Methods: _check_alphabet().
 
-##### AminoAcidSequence
-- Class for working with amino acid sequences.
-- Methods: _check_alphabet(), amino_acid_composition().
+- AminoAcidSequence
+  - Class for working with amino acid sequences.
+  - Methods: _check_alphabet(), amino_acid_composition().
 ---
 
 ### bio_files_processor.py
