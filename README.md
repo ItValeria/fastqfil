@@ -22,7 +22,7 @@ This package contains functions for:
      - length_bounds *(tuple or int, default=(0, 2**32))* – Allowed range of sequence lengths. If an integer is passed
      - quality_threshold *(float, default=0)* – Minimum average quality score required for sequences.  
    - Output: A filtered FastQ file inside the filtered directory.
-2.  #### Classes
+2.  #### Classes contained:
 
 ##### InvalidBiologicalSequence
 - Exception for invalid biological sequence alphabet.
